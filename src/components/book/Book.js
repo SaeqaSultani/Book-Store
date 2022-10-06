@@ -5,13 +5,26 @@ const Book = (props) => {
   const { title, author } = props;
 
   return (
-    <div className="list">
-      <div className="div-text">
-        <p>{title}</p>
-        <p>by</p>
-        <p>{author}</p>
+    <div className="parent">
+      <div className="list">
+        <div className="div-text">
+          <p>{title}</p>
+          <p>by</p>
+          <p>{author}</p>
+        </div>
+        <button className="remove" type="button">Remove</button>
       </div>
-      <button className="remove" type="button">Remove</button>
+      <div className="items">
+        <div className="first">
+          <div className="progress" />
+          <div className="progress-text">
+            <p>64%</p>
+            <p>Completed</p>
+          </div>
+        </div>
+        <div className="line" />
+        <div className="second" />
+      </div>
     </div>
   );
 };

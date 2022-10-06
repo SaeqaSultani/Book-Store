@@ -3,15 +3,12 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => (
   <div className="container">
-    <h1>BookStore CMS</h1>
     <div className="navbar">
-      <div className="nav-item">
-        <Link to="/">Books</Link>
-      </div>
-      <div className="nav-item">
-        <Link to="/Categories">Categories</Link>
-      </div>
+      <h1>BookStore CMS</h1>
+      <Link className="nav-item" to="/">Books</Link>
+      <Link className="nav-item" to="/Categories">Categories</Link>
     </div>
+    <img className="user" src="../images/person.png" alt="user" />
   </div>
 );
 
