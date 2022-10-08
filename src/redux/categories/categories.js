@@ -3,7 +3,7 @@ const CHECK_STATUS = 'categories/categories/CHECK_STATUS';
 const initialState = [];
 
 // reducer
-const reducer = (state = initialState, action) => {
+const categoriesReducer = (state = initialState, action) => {
   switch (action.type) {
     case CHECK_STATUS:
       return 'Under construction';
@@ -19,4 +19,4 @@ export const checkStatus = () => (dispatch) => {
   });
 };
 
-export default reducer;
+export default categoriesReducer;

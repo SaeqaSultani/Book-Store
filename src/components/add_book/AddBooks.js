@@ -8,8 +8,16 @@ const AddBooks = () => {
   const AddnewBook = () => {
     const title = document.getElementById('title').value;
     const author = document.getElementById('author').value;
+
+    const book = {
+      id: uuidv4(),
+      title,
+      author,
+    };
+
     if (title !== '' && author !== '') {
-      dispatch(addBook({ id: parseInt(10, uuidv4()), title, author }));
+      console.log(book);
+      dispatch(addBook(book));
     }
   };
 
