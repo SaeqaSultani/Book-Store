@@ -1,24 +1,36 @@
 import { v4 as uuidv4 } from 'uuid';
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addBook } from '../../redux/books/books';
+import './AddBooks.css';
 
 const AddBooks = () => {
   const dispatch = useDispatch();
-  const AddnewBook = () => {
-    const title = document.getElementById('title').value;
-    const author = document.getElementById('author').value;
+  const [data, setData] = useState({
+    title: '',
+    author: '',
 
+  });
+
+  const changeHandler = (e) => {
+    setData((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
+  };
+
+  const AddnewBook = () => {
     const objbook = {
-      id: uuidv4(),
-      title,
-      author,
+      item_id: uuidv4(),
+      title: data.title,
+      author: data.author,
+
     };
 
-    if (title !== '' && author !== '') {
-      console.log(objbook);
-      dispatch(addBook(objbook));
-    }
+    dispatch(addBook(objbook));
+    console.log(addBook(objbook));
+    setData({
+      title: '',
+      author: '',
+
+    });
   };
 
   return (
@@ -26,8 +38,22 @@ const AddBooks = () => {
       <hr className="line" />
       <h2 className="add-book">Add a new book</h2>
       <form className="form" method="post" id="bookForm">
-        <input className="input-1" type="text" id="title" placeholder="Book title" />
-        <input className="input-2" type="text" id="author" placeholder="Book author" />
+        <input
+          className="input-1"
+          type="text"
+          placeholder="Book title"
+          value={data.title}
+          onChange={changeHandler}
+          name="title"
+        />
+        <input
+          className="input-2"
+          type="text"
+          placeholder="Book author"
+          value={data.author}
+          onChange={changeHandler}
+          name="author"
+        />
         <button
           className="input-submit"
           id="btnAdd"

@@ -15,7 +15,7 @@ export const getBooks = createAsyncThunk(
     const data = await response.json();
 
     const books = Object.keys(data).map((key) => ({
-      id: key,
+      item_id: key,
       ...data[key][0],
     }));
 
@@ -25,8 +25,21 @@ export const getBooks = createAsyncThunk(
   },
 );
 
-// action creators
+// reducer
+const booksReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case ADD_BOOK:
+      return [...state, action.book];
+    case REMOVE_BOOK:
+      return state.filter((book) => book.item_id !== action.id);
+    case GET_BOOK:
+      return action.books;
+    default:
+      return state;
+  }
+};
 
+// action creators
 export const addBook = (book) => (dispatch) => {
   fetch(url, {
     method: 'POST',
@@ -38,32 +51,17 @@ export const addBook = (book) => (dispatch) => {
     type: ADD_BOOK,
     book,
   }));
+
+  dispatch(getBooks());
 };
 
 export const removeBook = (id) => (dispatch) => {
   fetch(`${url}/${id}`, {
     method: 'DELETE',
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-    },
   }).then(() => dispatch({
     type: REMOVE_BOOK,
     id,
   }));
-};
-
-// reducer
-const booksReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case ADD_BOOK:
-      return [...state, action.book];
-    case REMOVE_BOOK:
-      return state.filter((book) => book.id !== action.id);
-    case GET_BOOK:
-      return action.books;
-    default:
-      return state;
-  }
 };
 
 export default booksReducer;
