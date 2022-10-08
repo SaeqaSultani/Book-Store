@@ -1,33 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Book from '../book/Book';
+import { getBooks } from '../../redux/books/books';
 
 const Books = () => {
-  const Books = [
-    {
-      id: 1,
-      title: 'The Hunger Games',
-      author: 'Suzzane Collins',
-    },
-    {
-      id: 2,
-      title: 'Dune',
-      author: 'Frank Herbert',
-    },
-    {
-      id: 3,
-      title: 'Capital in the Twenty-First Century',
-      author: 'Suzzane Collins',
-    },
-  ];
-
-  const [books] = useState(Books);
-
+  const bookList = useSelector((state) => state.books);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getBooks());
+  },
+  []);
   return (
     <div>
       <ul>
-        {books.map((book) => (
+        {bookList.map((book) => (
           <li key={book.id}>
-            <Book title={book.title} author={book.author} />
+            <Book id={book.id} title={book.title} author={book.author} />
           </li>
         ))}
       </ul>
