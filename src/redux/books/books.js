@@ -25,21 +25,8 @@ export const getBooks = createAsyncThunk(
   },
 );
 
-// reducer
-const booksReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case ADD_BOOK:
-      return [...state, action.book];
-    case REMOVE_BOOK:
-      return state.filter((book) => book.id !== action.id);
-    case GET_BOOK:
-      return action.books;
-    default:
-      return state;
-  }
-};
-
 // action creators
+
 export const addBook = (book) => (dispatch) => {
   fetch(url, {
     method: 'POST',
@@ -51,8 +38,6 @@ export const addBook = (book) => (dispatch) => {
     type: ADD_BOOK,
     book,
   }));
-
-  dispatch(getBooks());
 };
 
 export const removeBook = (id) => (dispatch) => {
@@ -65,6 +50,20 @@ export const removeBook = (id) => (dispatch) => {
     type: REMOVE_BOOK,
     id,
   }));
+};
+
+// reducer
+const booksReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case ADD_BOOK:
+      return [...state, action.book];
+    case REMOVE_BOOK:
+      return state.filter((book) => book.id !== action.id);
+    case GET_BOOK:
+      return action.books;
+    default:
+      return state;
+  }
 };
 
 export default booksReducer;
